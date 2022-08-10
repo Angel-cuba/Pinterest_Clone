@@ -1,39 +1,73 @@
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, Pressable, Platform } from 'react-native';
 import React from 'react';
+import { AntDesign } from '@expo/vector-icons';
 
-const Pin = () => {
+const Pin = ({ image, title }: any) => {
+  const [ratio, setRatio] = React.useState(1);
+
+  const onLikes = () => {
+    console.log('onLikes');
+  };
+
+  Image.getSize(image, (width, height) => {
+    setRatio(width / height);
+  });
+  React.useEffect(() => {
+      Image.getSize(image, (width, height) => {
+    setRatio(width / height);
+  });
+  }, [image])
   return (
     <View style={styles.pin}>
-      <Image
-        source={{
-          uri: 'https://res.cloudinary.com/dqaerysgb/image/upload/v1658247594/Personal%20/Angel_NON-bg_mgyvrs.png',
-        }}
-        style={styles.logo}
-      />
-      <Text style={styles.title}>Hello</Text>
+      <View style={styles.image}>
+        <Image
+          source={{
+            uri: image,
+          }}
+          style={[
+            styles.logo,
+            {
+              aspectRatio: ratio,
+            },
+          ]}
+        />
+        <Pressable onPress={onLikes} style={styles.heartButton}>
+          <AntDesign name="hearto" size={20} color="black" />
+        </Pressable>
+      </View>
+
+      <Text style={styles.title}>{title}</Text>
     </View>
   );
 };
 
 export default Pin;
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    // alignItems: 'center',
-    justifyContent: 'center',
-    padding: '10px',
-  },
   title: {
     fontSize: 20,
     fontWeight: 'bold',
-    margin: 10,
+    marginBottom: 15,
+    marginTop: 5,
+    paddingLeft: 25,
   },
   pin: {
     width: '100%',
+    // padding: 10,
   },
   logo: {
-    width: '50%',
-    height: '50%',
+    width: '100%',
+    height: 200,
     borderRadius: 20,
+  },
+  image: {
+    position: 'relative',
+  },
+  heartButton: {
+    backgroundColor: '#D3CFD4',
+    position: 'absolute',
+    bottom: 10,
+    right: 30,
+    borderRadius: 50,
+    padding: 4,
   },
 });
