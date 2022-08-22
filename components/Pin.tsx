@@ -2,21 +2,21 @@ import { View, Text, StyleSheet, Image, Pressable, Platform } from 'react-native
 import React from 'react';
 import { AntDesign } from '@expo/vector-icons';
 
-const Pin = ({ image, title }: any) => {
+const Pin = ({ item }: any) => {
+  const { image, title } = item;
+  const [active, setactive] = React.useState('Home')
+
   const [ratio, setRatio] = React.useState(1);
 
   const onLikes = () => {
     console.log('onLikes');
   };
 
-  Image.getSize(image, (width, height) => {
-    setRatio(width / height);
-  });
   React.useEffect(() => {
-      Image.getSize(image, (width, height) => {
-    setRatio(width / height);
-  });
-  }, [image])
+    Image.getSize(image, (width, height) => {
+      setRatio(width / height);
+    });
+  }, [image]);
   return (
     <View style={styles.pin}>
       <View style={styles.image}>
@@ -60,6 +60,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   image: {
+    width: '100%',
     position: 'relative',
   },
   heartButton: {
