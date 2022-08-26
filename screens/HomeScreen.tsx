@@ -1,5 +1,4 @@
 import { FlatList, Image, ScrollView, StyleSheet } from 'react-native';
-
 import EditScreenInfo from '../components/EditScreenInfo';
 import Pin from '../components/Pin';
 import { Text, View } from '../components/Themed';
@@ -14,7 +13,7 @@ export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
   const title = 'AngelDev';
 
   return (
-    <ScrollView>
+    <ScrollView style={styles.scroll}>
       <View style={styles.container}>
         <FlatList
         data={picsData}
@@ -27,9 +26,14 @@ export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 10,
+    // flex: 1,
+    // width: '100%',
+    // backgroundColor: '#e41111',
+    // alignItems: 'center',
+    // justifyContent: 'center',
+    // // padding: 1,
   },
+  scroll: {
+    // backgroundColor: '#e41111',
+  }
 });

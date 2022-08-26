@@ -1,10 +1,9 @@
-import { View, Text, StyleSheet, Image, Pressable, Platform } from 'react-native';
+import { View, Text, StyleSheet, Image, Pressable, Platform, SafeAreaView } from 'react-native';
 import React from 'react';
 import { AntDesign } from '@expo/vector-icons';
 
 const Pin = ({ item }: any) => {
   const { image, title } = item;
-  const [active, setactive] = React.useState('Home')
 
   const [ratio, setRatio] = React.useState(1);
 
@@ -18,31 +17,43 @@ const Pin = ({ item }: any) => {
     });
   }, [image]);
   return (
-    <View style={styles.pin}>
-      <View style={styles.image}>
-        <Image
-          source={{
-            uri: image,
-          }}
-          style={[
-            styles.logo,
-            {
-              aspectRatio: ratio,
-            },
-          ]}
-        />
-        <Pressable onPress={onLikes} style={styles.heartButton}>
-          <AntDesign name="hearto" size={20} color="black" />
-        </Pressable>
-      </View>
+    <SafeAreaView style={styles.root}>
+      <View style={styles.pin}>
+        <View style={styles.image}>
+          <Image
+            source={{
+              uri: image,
+            }}
+            style={[
+              styles.logo,
+              {
+                aspectRatio: ratio,
+              },
+            ]}
+          />
+          <Pressable onPress={onLikes} style={styles.heartButton}>
+            <AntDesign name="hearto" size={20} color="black" />
+          </Pressable>
+        </View>
 
-      <Text style={styles.title}>{title}</Text>
-    </View>
+        <Text style={styles.title}>{title}</Text>
+      </View>
+    </SafeAreaView>
   );
 };
 
 export default Pin;
 const styles = StyleSheet.create({
+  root: {
+    //  backgroundColor: '#000000',
+     borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    // height: '100%',
+  },
+  pin: {
+    width: '100%',
+    position: 'relative',
+  },
   title: {
     fontSize: 20,
     fontWeight: 'bold',
@@ -50,24 +61,19 @@ const styles = StyleSheet.create({
     marginTop: 5,
     paddingLeft: 25,
   },
-  pin: {
-    width: '100%',
-    // padding: 10,
-  },
   logo: {
-    width: '100%',
     height: 200,
     borderRadius: 20,
   },
   image: {
     width: '100%',
-    position: 'relative',
+    height: 200,
   },
   heartButton: {
     backgroundColor: '#D3CFD4',
     position: 'absolute',
     bottom: 10,
-    right: 30,
+    left: 15,
     borderRadius: 50,
     padding: 4,
   },
