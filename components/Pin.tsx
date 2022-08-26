@@ -1,11 +1,13 @@
 import { View, Text, StyleSheet, Image, Pressable, Platform, SafeAreaView } from 'react-native';
 import React from 'react';
 import { AntDesign } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
 const Pin = ({ item }: any) => {
-  const { image, title } = item;
+  const { id, image, title } = item;
 
   const [ratio, setRatio] = React.useState(1);
+  const navigation = useNavigation();
 
   const onLikes = () => {
     console.log('onLikes');
@@ -16,8 +18,11 @@ const Pin = ({ item }: any) => {
       setRatio(width / height);
     });
   }, [image]);
+  const goingToPinPage = () => {
+    navigation.navigate('Pin', { id });
+  };
   return (
-    <SafeAreaView style={styles.root}>
+    <Pressable onPress={goingToPinPage} style={styles.root}>
       <View style={styles.pin}>
         <View style={styles.image}>
           <Image
@@ -38,17 +43,15 @@ const Pin = ({ item }: any) => {
 
         <Text style={styles.title}>{title}</Text>
       </View>
-    </SafeAreaView>
+    </Pressable>
   );
 };
 
 export default Pin;
 const styles = StyleSheet.create({
   root: {
-    //  backgroundColor: '#000000',
-     borderTopLeftRadius: 20,
+    borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    // height: '100%',
   },
   pin: {
     width: '100%',
@@ -61,13 +64,13 @@ const styles = StyleSheet.create({
     marginTop: 5,
     paddingLeft: 25,
   },
-  logo: {
-    height: 200,
-    borderRadius: 20,
-  },
   image: {
     width: '100%',
     height: 200,
+  },
+  logo: {
+    height: '100%',
+    borderRadius: 20,
   },
   heartButton: {
     backgroundColor: '#D3CFD4',
